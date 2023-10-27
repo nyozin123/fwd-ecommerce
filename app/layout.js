@@ -1,5 +1,10 @@
+import CartProvider from '@/context/CartProvider'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import ProductsProvider from '@/context/ProductsProvider'
+import Header from '@/components/HomePage/Header'
+import Cart from '@/components/Cart'
+import AuthProvider from '@/components/AuthProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,7 +16,22 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} relative`}>
+       <AuthProvider>
+        <CartProvider>
+          <ProductsProvider>
+          <div className="sticky top-0 left-0 w-full z-10">
+        <Header/>
+        </div> 
+          {children}
+          <Cart/>
+          </ProductsProvider>
+
+        </CartProvider>
+        </AuthProvider>
+
+      </body>
+
     </html>
   )
 }
